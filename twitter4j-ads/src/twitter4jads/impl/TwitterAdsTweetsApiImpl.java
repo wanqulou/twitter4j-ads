@@ -3,10 +3,7 @@ package twitter4jads.impl;
 import com.google.common.collect.Lists;
 import com.google.gson.reflect.TypeToken;
 import org.apache.commons.lang3.StringUtils;
-import twitter4jads.BaseAdsListResponse;
-import twitter4jads.BaseAdsResponse;
-import twitter4jads.TwitterAdsClient;
-import twitter4jads.TwitterAdsConstants;
+import twitter4jads.*;
 import twitter4jads.api.TwitterAdsTweetsApi;
 import twitter4jads.internal.http.HttpParameter;
 import twitter4jads.internal.http.HttpResponse;
@@ -44,9 +41,9 @@ public class TwitterAdsTweetsApiImpl implements TwitterAdsTweetsApi {
     }
 
     @Override
-    public BaseAdsListResponse<Tweet> getTweets(String accountId, TwitterTweetType tweetType, Integer count, String cursor,
-                                                Boolean includeMentionsAndReplies, TwitterTimelineType timelineType, Boolean trimUser,
-                                                List<Long> tweetIds, Long userId) throws TwitterException {
+    public BaseAdsListResponseIterable<Tweet> getTweets(String accountId, TwitterTweetType tweetType, Integer count, String cursor,
+                                                        Boolean includeMentionsAndReplies, TwitterTimelineType timelineType, Boolean trimUser,
+                                                        List<Long> tweetIds, Long userId) throws TwitterException {
         TwitterAdUtil.ensureNotNull(accountId, TwitterAdsConstants.PARAM_ACCOUNT_ID);
         TwitterAdUtil.ensureNotNull(tweetType, TwitterAdsConstants.PARAM_TWEET_TYPE);
         final List<HttpParameter> params = Lists.newArrayList();
@@ -60,12 +57,7 @@ public class TwitterAdsTweetsApiImpl implements TwitterAdsTweetsApi {
         final Type type = new TypeToken<BaseAdsListResponse<Tweet>>() {
         }.getType();
 
-        final HttpResponse response = twitterAdsClient.getRequest(baseUrl, params.toArray(new HttpParameter[0]));
-        try {
-            return TwitterAdUtil.constructBaseAdsListResponse(response, response.asString(), type);
-        } catch (IOException e) {
-            throw new TwitterException("Failed to parse tweets.");
-        }
+        return twitterAdsClient.executeHttpListRequest(baseUrl, params, type);
     }
 
     @Override

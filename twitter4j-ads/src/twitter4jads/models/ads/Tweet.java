@@ -73,6 +73,9 @@ public class Tweet implements Serializable {
     @SerializedName("favorited")
     private Boolean favorited;
 
+    @SerializedName("card_uri")
+    private String cardUri;
+
     @SerializedName("full_text")
     private String fullText;
 
@@ -254,6 +257,14 @@ public class Tweet implements Serializable {
 
     public void setFavorited(Boolean favorited) {
         this.favorited = favorited;
+    }
+
+    public String getCardUri() {
+        return cardUri;
+    }
+
+    public void setCardUri(String cardUri) {
+        this.cardUri = cardUri;
     }
 
     public String getFullText() {

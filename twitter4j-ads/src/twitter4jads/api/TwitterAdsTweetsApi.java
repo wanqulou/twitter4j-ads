@@ -1,6 +1,7 @@
 package twitter4jads.api;
 
 import twitter4jads.BaseAdsListResponse;
+import twitter4jads.BaseAdsListResponseIterable;
 import twitter4jads.BaseAdsResponse;
 import twitter4jads.internal.models4j.TwitterException;
 import twitter4jads.models.ads.Tweet;
@@ -25,9 +26,9 @@ public interface TwitterAdsTweetsApi {
      * @return Tweet details for the account's full promotable user (default) or the user specified in the user_id parameter.
      * @throws TwitterException
      */
-    BaseAdsListResponse<Tweet> getTweets(String accountId, TwitterTweetType tweetType, Integer count, String cursor,
-                                         Boolean includeMentionsAndReplies, TwitterTimelineType timelineType, Boolean trimUser,
-                                         List<Long> tweetIds, Long userId)
+    BaseAdsListResponseIterable<Tweet> getTweets(String accountId, TwitterTweetType tweetType, Integer count, String cursor,
+                                                 Boolean includeMentionsAndReplies, TwitterTimelineType timelineType, Boolean trimUser,
+                                                 List<Long> tweetIds, Long userId)
             throws TwitterException;
 
     /**
