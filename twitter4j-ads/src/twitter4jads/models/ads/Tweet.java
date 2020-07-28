@@ -3,6 +3,7 @@ package twitter4jads.models.ads;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @author niketkhandelwal
@@ -90,6 +91,9 @@ public class Tweet implements Serializable {
 
     @SerializedName("place")
     private String place;
+
+    @SerializedName("contributors")
+    private List<Long> contributors;
 
     public Long getId() {
         return id;
@@ -307,14 +311,11 @@ public class Tweet implements Serializable {
         this.place = place;
     }
 
-    public String getContributors() {
+    public List<Long> getContributors() {
         return contributors;
     }
 
-    public void setContributors(String contributors) {
+    public void setContributors(List<Long> contributors) {
         this.contributors = contributors;
     }
-
-    @SerializedName("contributors")
-    private String contributors;
 }

@@ -18,6 +18,8 @@ import twitter4jads.util.TwitterAdUtil;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import static twitter4jads.TwitterAdsConstants.*;
@@ -421,6 +423,8 @@ public class TwitterAdsLineItemApiImpl implements TwitterAdsLineItemApi {
                                                                  Optional<String> advertiserDomain, String[] categories, String webEventTag, String name,
                                                                  Optional<Date> startTime, Optional<Date> endTime,
                                                                  Long targetCpaLocalMicro, Long budget, List<TrackingTag> trackingTags, String twitterAudienceExpansion) {
+        final DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+
         if (bidType == BidType.TARGET || bidType == BidType.MAX) {
             TwitterAdUtil.ensureNotNull(bidAmountLocalMicro, "Bid amount cannot be null for TARGET or MAX Bid Type");
         }
@@ -466,9 +470,7 @@ public class TwitterAdsLineItemApiImpl implements TwitterAdsLineItemApi {
         if (objective != null && objective.isPresent()) {
             params.add(new HttpParameter(PARAM_OBJECTIVE, objective.get()));
 
-            // Twitter Audience Platform is supported for these objectives only
-            if (TwitterAdUtil.TWEET_ENGAGEMENTS.equals(objective.get()) || TwitterAdUtil.VIDEO_VIEWS.equals(objective.get()) ||
-                    TwitterAdUtil.WEBSITE_CLICKS.equals(objective.get())) {
+            if (placements.contains(Placement.PUBLISHER_NETWORK) {
                 if (advertiserDomain != null && advertiserDomain.isPresent()) {
                     params.add(new HttpParameter(PARAM_ADVERTISER_DOMAIN, advertiserDomain.get()));
                 }
@@ -486,10 +488,10 @@ public class TwitterAdsLineItemApiImpl implements TwitterAdsLineItemApi {
         }
 
         if (startTime != null && startTime.isPresent()) {
-            params.add(new HttpParameter(PARAM_START_TIME, String.valueOf(startTime)));
+            params.add(new HttpParameter(PARAM_START_TIME, df.format(startTime.get())));
         }
         if (endTime != null && endTime.isPresent()) {
-            params.add(new HttpParameter(PARAM_END_TIME, String.valueOf(endTime)));
+            params.add(new HttpParameter(PARAM_END_TIME, df.format(startTime.get())));
         }
         if (TwitterAdUtil.isNotNull(budget)) {
             params.add(new HttpParameter(PARAM_TOTAL_BUDGET_AMOUNT_LOCAL_MICRO, budget));
