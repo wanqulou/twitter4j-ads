@@ -470,7 +470,7 @@ public class TwitterAdsLineItemApiImpl implements TwitterAdsLineItemApi {
         if (objective != null && objective.isPresent()) {
             params.add(new HttpParameter(PARAM_OBJECTIVE, objective.get()));
 
-            if (placements.contains(Placement.PUBLISHER_NETWORK) {
+            if (placements.contains(Placement.PUBLISHER_NETWORK)) {
                 if (advertiserDomain != null && advertiserDomain.isPresent()) {
                     params.add(new HttpParameter(PARAM_ADVERTISER_DOMAIN, advertiserDomain.get()));
                 }
@@ -478,6 +478,7 @@ public class TwitterAdsLineItemApiImpl implements TwitterAdsLineItemApi {
                     params.add(new HttpParameter(PARAM_CATEGORIES, TwitterAdUtil.getCsv(Arrays.asList(categories))));
                 }
             }
+
         }
 
         if (objective != null && objective.isPresent() &&
