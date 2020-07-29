@@ -307,8 +307,8 @@ public class TwitterAdsTargetingApiImpl implements TwitterAdsTargetingApi {
                                                                       accountId, List<TargetingParamRequest> targetingParamRequests) throws TwitterException {
         validateTargetingBatch(targetingParamRequests);
 
-        String baseUrl = twitterAdsClient.getBaseAdsAPIUrl() + PREFIX_BATCH_ACCOUNTS_URI + PATH_ACCOUNTS + accountId + PATH_TARGETING_CRITERIA;
-        HttpResponse httpResponse = twitterAdsClient.postBatchRequest(baseUrl, GSON.toJson(targetingParamRequests));
+        String baseUrl = twitterAdsClient.getBaseAdsAPIUrl() + PREFIX_BATCH_ACCOUNTS_URI + accountId + PATH_TARGETING_CRITERIA;
+        HttpResponse httpResponse = twitterAdsClient.postRequest(baseUrl, GSON.toJson(targetingParamRequests));
         Type typeToken = new TypeToken<TargetingParamResponse>() {
         }.getType();
 
